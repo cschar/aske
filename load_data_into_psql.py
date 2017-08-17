@@ -23,13 +23,10 @@ def doQuery( conn ) :
         for f in filters:
             text = text.replace(f[0], f[1])
         SQL_QUERY = """
-        INSERT INTO "public"."aa"("text", "site")
+        INSERT INTO "arts"("text", "website")
          VALUES( E'{text}', '{site}');
         """.format(text=text, site=site)
-        # SQL_QUERY = """
-        # INSERT INTO "public"."aa"("text", "site")
-        #  VALUES( E'{text}', '{site}');
-        # """.format(text=text, site=site)
+
 
 
         cur.execute( SQL_QUERY )

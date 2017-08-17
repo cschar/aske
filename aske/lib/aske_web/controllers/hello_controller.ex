@@ -1,19 +1,35 @@
+import Ecto.Query, only: [from: 2]
+
 defmodule AskeWeb.HelloController do
   use AskeWeb, :controller
+  alias Aske.Repo
+  alias Aske.User
+  alias Aske.Art
+#  import Ecto.query
 
   # add _ to avoid compiler warning
   def index(conn, _params) do
-    render conn, "index.html"
+  conn
+  |> assign(:message, "Welcome Back!")
+  |> assign(:name, "Dweezil")
+  |> render("index.html")
+#    render conn, "index.html"
   end
 
-  #%{} is map syntax
-  #In contrast to keyword lists,
-  #maps are very useful with pattern matching.
-  #When a map is used in a pattern, it will always
-  #match on a subset of the given value:
-
   def show(conn, %{"messenger" => messenger1}) do
-    render conn, "show.html", messenger: messenger1
+
+#    alias Ecto.query
+    umails = [111,"2"]
+    rep_users = Repo.all(from u in User,
+                         select: u.email)
+    arts = Repo.all(from a in Art,
+                    select: a.text)
+
+    render conn, "show.html",
+           messenger: messenger1,
+           emails: umails,
+           users: rep_users,
+           arts: arts
   end
 
   #if we needed access to all params...

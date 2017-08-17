@@ -1,3 +1,22 @@
 <div class="jumbotron">
   <h2>Hello World, from <h1><%= @messenger %>! </h1></h2>
+  <%= for ema <- @emails do %>
+    <li><%= ema %> </li>
+  <% end %>
+
+  <%= for u <- @users do %>
+    <li><%= u %> </li>
+  <% end %>
+  <%= for a <- @arts do %>
+    <pre><%= a %> </pre>
+  <% end %>
+</div>
+
+<div>
+  <h2> connection keys</h2>
+<ul>
+<%= for key <- connection_keys @conn do %>
+    <li><%= key %> </li>
+  <% end %>
+  </ul>
 </div>
