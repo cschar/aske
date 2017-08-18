@@ -1,4 +1,6 @@
 <div class="jumbotron">
+
+
   <h2>Hello World, from <h1><%= @messenger %>! </h1></h2>
   <%= for ema <- @emails do %>
     <li><%= ema %> </li>
@@ -8,7 +10,7 @@
     <li><%= u %> </li>
   <% end %>
   <%= for a <- @arts do %>
-    <pre><%= a %> </pre>
+    <pre><%= a.text %> </pre>
   <% end %>
 </div>
 

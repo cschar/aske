@@ -8,7 +8,6 @@ defmodule Aske.Art do
     field :text, :string
     field :website, :string
 
-    timestamps()
   end
 
   @doc false

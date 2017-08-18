@@ -16,14 +16,17 @@ defmodule AskeWeb.HelloController do
 #    render conn, "index.html"
   end
 
-  def show(conn, %{"messenger" => messenger1}) do
+  def show(conn, %{"messenger" => messenger1} = params) do
 
 #    alias Ecto.query
     umails = [111,"2"]
     rep_users = Repo.all(from u in User,
                          select: u.email)
-    arts = Repo.all(from a in Art,
-                    select: a.text)
+#    arts = Repo.all(from a in Art,
+#                    select: a.text)
+
+    arts = Art |> Repo.paginate(params)
+
 
     render conn, "show.html",
            messenger: messenger1,
