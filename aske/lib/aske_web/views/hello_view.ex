@@ -7,4 +7,9 @@ defmodule AskeWeb.HelloView do
     |> Map.keys()
   end
 
+  def pagination_items(page) do
+      range = Enum.into 1..page.total_pages, []
+
+  end
+
 end

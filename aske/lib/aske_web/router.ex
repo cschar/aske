@@ -16,11 +16,11 @@ defmodule AskeWeb.Router do
   scope "/", AskeWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+#    get "/", PageController, :index
+    get "/", HelloController, :index
     get "/api", APIController, :art_list
     get "/api/:id", APIController, :art_detail
-    get "/hello", HelloController, :index
-    get "/hello/:messenger", HelloController, :show
+
   end
 
   # Other scopes may use custom stacks.

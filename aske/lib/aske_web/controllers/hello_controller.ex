@@ -7,13 +7,15 @@ defmodule AskeWeb.HelloController do
   alias Aske.Art
 #  import Ecto.query
 
-  # add _ to avoid compiler warning
-  def index(conn, _params) do
-  conn
-  |> assign(:message, "Welcome Back!")
-  |> assign(:name, "Dweezil")
-  |> render("index.html")
-#    render conn, "index.html"
+  def index(conn, params) do
+
+    page = Art |> Repo.paginate(params)
+
+
+    render conn, "index.html",
+           arts: page.entries,
+           page: page
+
   end
 
   def show(conn, %{"messenger" => messenger1} = params) do

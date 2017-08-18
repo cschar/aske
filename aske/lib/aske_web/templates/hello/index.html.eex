@@ -1,5 +1,27 @@
 <div class="jumbotron">
-  <h2>Hello World, from Phoenix!</h2>
 
-  <h2><%= @message %> <%= @name %></h2>
+  <h2> <a href="<%= api_path(@conn, :art_list) %>"> API </a></h2>
+  <h2>Listing </h2>
+
+
+  <nav aria-label="Page navigation example">
+  <ul class="pagination">
+
+    <!--<%= if @page.page_number > 1 do %>-->
+    <!--<li class="page-item"><a class="page-link" href="<%= hello_path(@conn, :index, page: @page.page_number - 1) %>">Previous</a></li>-->
+    <!--<% end %>-->
+    <%= for p <- pagination_items @page do %>
+    <li class="page-item"><a class="page-link"
+                             href="<%= hello_path(@conn, :index, page: p) %>">
+    <%= p %></a></li>
+    <% end %>
+    <!--<%= if @page.page_number < @page.total_pages do %>-->
+    <!--<li class="page-item"><a class="page-link" href="<%= hello_path(@conn, :index, page: @page.page_number + 1) %>">Next</a></li>-->
+    <!--<% end %>-->
+
+  </ul>
+</nav>
+    <%= for a <- @arts do %>
+    <pre><%= a.text %> </pre>
+  <% end %>
 </div>
