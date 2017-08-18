@@ -1,5 +1,6 @@
 import psycopg2
 import json
+import os
 
 hostname = 'localhost'
 username = 'postgres'
@@ -9,11 +10,11 @@ database = 'hello_dev2'
 # Simple routine to run a query on a database and print the results:
 def doQuery( conn ) :
     cur = conn.cursor()
+    path = os.path.expanduser('.')
+    f = open(path+'/crawler-dump.json','r')
+    aske_json = json.loads(f.read())
 
-    f = open('/Users/codyscharfe/mdev/ascii-api/animal.json','r')
-    animal_json = json.loads(f.read())
-
-    for entry in animal_json[:10]:
+    for entry in aske_json[:10]:
         text = entry['text']
         site = entry['url']
 
@@ -36,7 +37,7 @@ def get_arts():
     myConnection = psycopg2.connect( host=hostname, user=username, password=password, dbname=database )
     cur = myConnection.cursor()
     SQL_QUERY = """
-        SELECT * FROM "aa";
+        SELECT * FROM "arts";
         """
 
     cur.execute( SQL_QUERY )
@@ -51,8 +52,3 @@ if __name__ == '__main__':
     myConnection.commit()
     myConnection.close()
 
-# print "Using PyGreSQL…"
-# import pgdb
-# myConnection = pgdb.connect( host=hostname, user=username, password=password, database=database )
-# doQuery( myConnection )
-# myConnection.close()
