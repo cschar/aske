@@ -12,6 +12,10 @@
 
 }
 
+.pre-list{
+    text-align: start;
+}
+
 video {
     top: 100px;
     width: 519px;
