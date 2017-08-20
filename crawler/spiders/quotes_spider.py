@@ -1,86 +1,94 @@
 import scrapy
+import time
 
+#for main page
+#s = response.selector.xpath('//td[@id="blocGauche"]/div[1]')[0]
+#categories = s.xpath('//div[@class="bloc menu"]/div/a[@class="mot"]/@href').extract()
+categories = [
+ # '-ranma-1-2,42-.html',
+ '-Cats-2-.html',
+ '-Castels-.html',
+ '-Humanized-.html',
+ '-Explosivs-.html',
+ '-Aliens,128-.html',
+ '-Angels-.html',
+ '-Animals-.html',
+ '-Babies-.html',
+ '-Birds-and-insects-.html',
+ '-Birthday-.html',
+ '-Buildings-.html',
+ '-Cartoons-.html',
+ '-Clothes-.html',
+ '-Computers-.html',
+ '-Peoples-.html',
+ '-Edges-and-Funds-.html',
+ '-Geometry-.html',
+ '-Halloween,58-.html',
+ '-Islands-.html',
+ '-Logos,50-.html',
+ '-For-lovers-.html',
+ '-Mangas,48-.html',
+ '-Mens-.html',
+ '-Miscelleneaous-.html',
+ '-Movies-.html',
+ '-Paris,32-.html',
+ '-Police,150-.html',
+ '-Robots,24-.html',
+ '-Death-Co-.html',
+ '-Sports,18-.html',
+ '-Texts-.html',
+ '-Transport,156-.html',
+ '-Trucks-.html',
+ '-Celebrities-.html',
+]
 
+#http://ricostacruz.com/cheatsheets/xpath.html
+# scrapy shell http://www.asciiworld.com/
+# scrapy crawl ascii_test -o crawl1.json
 
-
-
-
-#scrapy crawl quotes -o quotes-humor.json -a tag=humor
-# scrapy crawl quotes -o quotes.json
-
-class QuotesSpider(scrapy.Spider):
-    name = "quotes"
-
-    def start_requests(self):
-        url = 'http://quotes.toscrape.com/'
-        tag = getattr(self, 'tag', None)
-        if tag is not None:
-            url = url + 'tag/' + tag
-        yield scrapy.Request(url, self.parse)
-
-    def parse(self, response):
-        for quote in response.css('div.quote'):
-            yield {
-                'text': quote.css('span.text::text').extract_first(),
-                'author': quote.css('small.author::text').extract_first(),
-            }
-
-        next_page = response.css('li.next a::attr(href)').extract_first()
-        if next_page is not None:
-            yield response.follow(next_page, self.parse)
-
-
-class BlueSpider(scrapy.Spider):
-    name = "blue"
-
-    def start_requests(self):
-        urls = [
-            'http://quotes.toscrape.com/page/1/',
-            'http://quotes.toscrape.com/page/2/',
-        ]
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse)
-
-    def parse(self, response):
-        for quote in response.css('div.quote'):
-            yield {
-                'text': quote.css('span.text::text').extract_first(),
-                'author': quote.css('small.author::text').extract_first(),
-                'tags': quote.css('div.tags a.tag::text').extract(),
-            }
-
-        next_page = response.css('li.next a::attr(href)').extract_first()
-        if next_page is not None:
-            yield response.follow(next_page, callback=self.parse)
 
 class ASCIISpider(scrapy.Spider):
     name = 'ascii_test'
-    #http://ricostacruz.com/cheatsheets/xpath.html
+
+
+    root_url = 'http://www.asciiworld.com/'
 
     def start_requests(self):
-        url='http://www.asciiworld.com/-Animals-.html'
-        #url = 'http://www.asciiworld.com/'
-        yield scrapy.Request(url, self.parse)
 
-    def parse(self, response):
-        #for main page
-        #s = response.selector.xpath('//td[@id="blocGauche"]/div[1]')[0]
-        #categories = s.xpath('//div[@class="bloc menu"]/div/a[@class="mot"]/@href').extract()
+        for c in categories:
+            print(f"crawling ${c}")
+            time.sleep(1)
+            url = ASCIISpider.root_url + c
+            yield scrapy.Request(url=url, callback=self.parse)
 
-        # sub_menu = response.selector.xpath('//td[@id="blocCentre"]/div/div/table').extract()[0]
-        ascii_tables = response.selector.xpath('//td[@id="blocCentre"]/div/div/table')[1]
-        # ascii_arts = ascii_tables.xpath('//table/*/*/pre').extract()
-        ascii_arts = ascii_tables.xpath('//table/tr/td/pre/text()').extract()
-        # figure out how to join h4 and pre together in object when extracting
-        # atable.xpath('//table/tr/td/h4/text()')
+    def parse_sub_cat(self, response):
+        ascii_arts = response.selector.xpath(
+                '//td[@id="blocCentre"]/div/div/table/tr/td/table/tr/td/pre/text()').extract()
 
 
-        for aa in ascii_arts:
+        for ascii in ascii_arts:
             yield {
-                'text': aa,
+                'text': ascii,
                 'url': response.url,
             }
 
-        # next_page = response.css('li.next a::attr(href)').extract_first()
-        # if next_page is not None:
-        #     yield response.follow(next_page, self.parse)
+
+    def parse(self, response):
+        ascii_tables = response.selector.xpath('//td[@id="blocCentre"]/div/div/table')
+        if len(ascii_tables) == 2:
+            sub_categories = ascii_tables[0].xpath('//table/tr/td/div/a/@href')
+            ascii_arts = ascii_tables[1].xpath('//table/tr/td/pre/text()').extract()
+
+            for sub_cat in sub_categories:
+                time.sleep(0.5)
+                url = ASCIISpider.root_url + sub_cat.extract()
+                yield scrapy.Request(url, self.parse_sub_cat )
+        else:
+            ascii_arts = ascii_tables[0].xpath('//table/tr/td/pre/text()').extract()
+
+
+        for ascii in ascii_arts:
+            yield {
+                'text': ascii,
+                'url': response.url,
+            }

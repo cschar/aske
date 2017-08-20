@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Aske!</title>
+    <title>Aske API - An ASCII API Experiment </title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
@@ -17,9 +17,8 @@
 
           <video playsinline autoplay loop>
     <source src="/images/logo.webm">
-    <!--<source src="../images/Home_Page.webm" type="video/webm" > -->
-</video>
-        </span>
+      </video>
+
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

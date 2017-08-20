@@ -1,6 +1,6 @@
 defmodule Aske.Repo do
   use Ecto.Repo, otp_app: :aske
-  use Scrivener, page_size: 4
+  use Scrivener, page_size: 50
 
 
   @doc """

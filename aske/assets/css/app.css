@@ -22,3 +22,14 @@ video {
     height: 221px;
 
 }
+
+
+.grid-container{
+    display: grid;
+    grid-template-areas: "api-image api-link"
+                         "api-image api-link";
+}
+
+.api-link {
+    text-align: start;
+}

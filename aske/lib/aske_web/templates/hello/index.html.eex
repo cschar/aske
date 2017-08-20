@@ -1,8 +1,14 @@
 <div class="jumbotron">
 
-  <h2> <a href="<%= api_path(@conn, :art_list) %>"> API </a></h2>
-  <h2>Listing </h2>
+  <div class="grid-container">
+    <div class="api-image">
 
+    </div>
+    <div class="api-link">
+  <h2> <a href="<%= api_path(@conn, :art_list) %>"> GET </a></h2>
+  <h2> usage : /api?page=12 </h2>
+    </div>
+  </div>
 
   <nav aria-label="Page navigation example">
   <ul class="pagination">
