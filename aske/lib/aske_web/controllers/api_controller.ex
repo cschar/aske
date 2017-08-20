@@ -15,11 +15,12 @@ defmodule AskeWeb.APIController do
         fn(x) -> %{text: x.text,
                    website: x.website} end)
 
+   next_page =
     cond do
       arts.page_number == arts.total_pages ->
-        next_page = arts.page_number
+        arts.page_number
       arts.page_number < arts.total_pages ->
-        next_page = arts.page_number + 1
+        arts.page_number + 1
     end
 
     json conn, %{data: data,
