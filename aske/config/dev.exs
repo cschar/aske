@@ -37,7 +37,7 @@ config :aske, AskeWeb.Endpoint,
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/aske_web/views/.*(ex)$},
-      ~r{lib/aske_web/templates/.*(eex)$}
+      ~r{lib/aske_web/templates/.*(eex|drab)$}
     ]
   ]
 

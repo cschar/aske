@@ -14,7 +14,9 @@ defmodule AskeWeb.HelloController do
 
     render conn, "index.html",
            arts: page.entries,
-           page: page
+           page: page,
+           welcome_text: "Welcome to Phoenix!",
+           text: 'test'
 
   end
 
@@ -35,6 +37,7 @@ defmodule AskeWeb.HelloController do
            emails: umails,
            users: rep_users,
            arts: arts
+           
   end
 
   #if we needed access to all params...

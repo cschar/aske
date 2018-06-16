@@ -1,0 +1,5 @@
+<div class="pre-list">
+    <%= for a <- @arts do %>
+    <pre><%= a.text %> </pre>
+  <% end %>
+</div>

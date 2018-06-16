@@ -1,0 +1,47 @@
+<div class="jumbotron">
+
+  <div class="grid-container">
+    <div class="api-image">
+
+    </div>
+
+    
+    <div class="api-link">
+      <h2> <a href="<%= api_path(@conn, :art_list) %>"> GET </a></h2>
+      <h2> usage : /api?page=12 </h2>
+      <button class="btn btn-primary"
+        onclick="Drab.exec_elixir('randomclicked', {foo: 5});">
+        random
+      </button>
+    </div>
+
+    
+  </div>
+
+
+
+
+
+  <nav aria-label="Page navigation example">
+  <div class="pagination">
+
+    <%= for p <- pagination_items @page do %>
+      
+        <button  class="btn btn-secondary"
+              onclick="Drab.exec_elixir('clicked', 
+              {page_num: <%= p %>});">
+        <%= p %>
+        </button>
+    
+    <% end %>
+
+  </div>
+</nav>
+<div id="preview">
+  <div class="pre-list">
+    <%= for a <- @arts do %>
+    <pre><%= a.text %> </pre>
+  <% end %>
+    </div>
+  </div>
+</div>
