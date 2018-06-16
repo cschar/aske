@@ -1,5 +1,7 @@
 defmodule Aske.Repo do
-  use Ecto.Repo, otp_app: :aske
+  use Ecto.Repo, otp_app: :aske,
+                 adapter: Ecto.Adapters.Postgres
+
   use Scrivener, page_size: 50
 
 
@@ -10,4 +12,6 @@ defmodule Aske.Repo do
   def init(_, opts) do
     {:ok, Keyword.put(opts, :url, System.get_env("DATABASE_URL"))}
   end
+
+  
 end
