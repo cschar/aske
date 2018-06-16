@@ -21,7 +21,7 @@ config :aske, AskeWeb.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
-config :gigalixir_getting_started, GigalixirGettingStarted.Repo,
+config :darkseagreen_robust_gypsymoth, GigalixirGettingStarted.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: {:system, "DATABASE_URL"},
   database: "",
