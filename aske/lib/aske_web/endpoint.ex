@@ -3,7 +3,7 @@ defmodule AskeWeb.Endpoint do
 
   socket "/socket", AskeWeb.UserSocket
 
-  plug CORSPlug, origin: ["http://localhost:4000", System.get_env("HOSTNAME")] 
+  plug CORSPlug, origin: [AskeWeb.LayoutView.hostname] 
 
   # Serve at "/" the static files from "priv/static" directory.
   #
