@@ -19,3 +19,35 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+var buttons = document.querySelectorAll(".pagebutton");
+
+function displayAscii(data){
+  var el = document.getElementById("ascii-display");
+  el.innerHTML = "";
+
+  data.forEach(function(asciiData){
+    let pre = document.createElement('pre');
+    pre.innerHTML = 'hey'
+    pre.innerHTML = asciiData.text;
+    el.appendChild(pre);
+  })
+}
+
+buttons.forEach(function(button){
+  button.addEventListener("click", function(x){
+    
+    let buttonNum = button.getAttribute('name')
+    
+    let url = window.js_map.hostname+"/api?page="+buttonNum
+
+    fetch(url)
+    .then( resp => (resp.json()))
+    .then((payload) => {
+      
+      displayAscii(payload.data);
+    })
+    .catch((err) => console.log(err))
+  })
+})
+

@@ -1,5 +1,10 @@
 .idea
 .DS_Store
+_build
+deps
+config
+priv
+assets
 
 #python
 __pycache__

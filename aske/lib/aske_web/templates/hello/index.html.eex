@@ -13,23 +13,19 @@
   <nav aria-label="Page navigation example">
   <ul class="pagination">
 
-    <!--<%= if @page.page_number > 1 do %>-->
-    <!--<li class="page-item"><a class="page-link" href="<%= hello_path(@conn, :index, page: @page.page_number - 1) %>">Previous</a></li>-->
-    <!--<% end %>-->
     <%= for p <- pagination_items @page do %>
-    <li class="page-item"><a class="page-link"
-                             href="<%= hello_path(@conn, :index, page: p) %>">
-    <%= p %></a></li>
+    <button class="pagebutton" name="<%= p %>"> <%= p %> </button>
+    </li>
     <% end %>
-    <!--<%= if @page.page_number < @page.total_pages do %>-->
-    <!--<li class="page-item"><a class="page-link" href="<%= hello_path(@conn, :index, page: @page.page_number + 1) %>">Next</a></li>-->
-    <!--<% end %>-->
+
 
   </ul>
 </nav>
-  <div class="pre-list">
-    <%= for a <- @arts do %>
-    <pre><%= a.text %> </pre>
-  <% end %>
+  <div id="ascii-display">
+    <div class="pre-list">
+          <%= for a <- @arts do %>
+          <pre><%= a.text %> </pre>
+        <% end %>
     </div>
+  </div>
 </div>

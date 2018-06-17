@@ -3,6 +3,8 @@ defmodule AskeWeb.Endpoint do
 
   socket "/socket", AskeWeb.UserSocket
 
+  plug CORSPlug, origin: ["http://localhost:4000", "http://example2.com"] 
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest

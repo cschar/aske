@@ -29,6 +29,10 @@
       </main>
 
     </div> <!-- /container -->
+    <script type="text/javascript">
+      let js_map = window.js_map = <%= raw Poison.encode!(%{foo: 42,
+                                                             hostname: hostname}) %>
+  </script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
